@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createDrawerNavigator,
@@ -7,116 +7,17 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  createStackNavigator,
-  HeaderBackButton,
-} from "@react-navigation/stack";
 import { Provider as PaperProvider } from "react-native-paper";
+
+import { NewsScreen } from "./screens/NewsScreen";
+import { ESportsScreen } from "./screens/ESportsScreen";
+import { MessagesScreen } from "./screens/MessagesScreen";
+import { ProfileScreen } from "./screens/ProfileScreen";
+import { ConfigurationsScreen } from "./screens/ConfigurationsScreen";
 
 const RNDrawer = createDrawerNavigator();
 
 const RNBottom = createBottomTabNavigator();
-
-const RNStack = createStackNavigator();
-
-function News() {
-  const NewsScreen = () => {
-    return (
-      <View style={styles.container}>
-        <Text>News Screen</Text>
-      </View>
-    );
-  };
-  return (
-    <RNStack.Navigator>
-      <RNStack.Screen name="News" component={NewsScreen} />
-    </RNStack.Navigator>
-  );
-}
-
-function ESports() {
-  const ESportsScreen = () => {
-    return (
-      <View style={styles.container}>
-        <Text>E-Sports Screen</Text>
-      </View>
-    );
-  };
-  return (
-    <RNStack.Navigator>
-      <RNStack.Screen name="E-Sports" component={ESportsScreen} />
-    </RNStack.Navigator>
-  );
-}
-
-function Messages() {
-  const MessagesScreen = () => {
-    return (
-      <View style={styles.container}>
-        <Text>Messages Screen</Text>
-      </View>
-    );
-  };
-  return (
-    <RNStack.Navigator>
-      <RNStack.Screen name="Messages" component={MessagesScreen} />
-    </RNStack.Navigator>
-  );
-}
-
-function Profile() {
-  const ProfileScreen = () => {
-    return (
-      <View style={styles.container}>
-        <Text>Profile Screen</Text>
-      </View>
-    );
-  };
-  return (
-    <RNStack.Navigator>
-      <RNStack.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={({ navigation }) => ({
-          headerLeft: () => (
-            <HeaderBackButton
-              onPress={() => {
-                navigation.goBack();
-              }}
-            />
-          ),
-        })}
-      />
-    </RNStack.Navigator>
-  );
-}
-
-function Configurations() {
-  const ConfigurationsScreen = () => {
-    return (
-      <View style={styles.container}>
-        <Text>Configurations Screen</Text>
-      </View>
-    );
-  };
-  return (
-    <RNStack.Navigator>
-      <RNStack.Screen
-        name="Configurations"
-        component={ConfigurationsScreen}
-        options={({ navigation }) => ({
-          headerLeft: () => (
-            <HeaderBackButton
-              onPress={() => {
-                navigation.goBack();
-              }}
-            />
-          ),
-        })}
-      />
-    </RNStack.Navigator>
-  );
-}
 
 function DrawerContent(props) {
   return (
@@ -140,9 +41,9 @@ function DrawerContent(props) {
 function BottomNavigator() {
   return (
     <RNBottom.Navigator>
-      <RNBottom.Screen name="News" component={News} />
-      <RNBottom.Screen name="E-Sports" component={ESports} />
-      <RNBottom.Screen name="Messages" component={Messages} />
+      <RNBottom.Screen name="News" component={NewsScreen} />
+      <RNBottom.Screen name="E-Sports" component={ESportsScreen} />
+      <RNBottom.Screen name="Messages" component={MessagesScreen} />
     </RNBottom.Navigator>
   );
 }
@@ -155,8 +56,11 @@ export default function App() {
           drawerContent={(props) => <DrawerContent {...props} />}
         >
           <RNDrawer.Screen name="Main" component={BottomNavigator} />
-          <RNDrawer.Screen name="Profile" component={Profile} />
-          <RNDrawer.Screen name="Configurations" component={Configurations} />
+          <RNDrawer.Screen name="Profile" component={ProfileScreen} />
+          <RNDrawer.Screen
+            name="Configurations"
+            component={ConfigurationsScreen}
+          />
         </RNDrawer.Navigator>
       </NavigationContainer>
     </PaperProvider>
