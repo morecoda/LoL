@@ -1,6 +1,10 @@
 import React from "react";
-import { StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -8,6 +12,7 @@ import {
 } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Provider as PaperProvider } from "react-native-paper";
+import { useColorScheme } from "react-native-appearance";
 
 import { NewsScreen } from "./screens/NewsScreen";
 import { ESportsScreen } from "./screens/ESportsScreen";
@@ -49,9 +54,10 @@ function BottomNavigator() {
 }
 
 export default function App() {
+  const scheme = useColorScheme();
   return (
     <PaperProvider>
-      <NavigationContainer>
+      <NavigationContainer theme={scheme === "dark" ? DarkTheme : DefaultTheme}>
         <RNDrawer.Navigator
           drawerContent={(props) => <DrawerContent {...props} />}
         >
@@ -63,15 +69,7 @@ export default function App() {
           />
         </RNDrawer.Navigator>
       </NavigationContainer>
+      <StatusBar style={"auto"} />
     </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
